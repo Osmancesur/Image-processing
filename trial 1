@@ -1,1 +1,43 @@
-1
+import cv2
+import numpy
+
+##making the picture gray and saving it into the a folder
+
+img = cv2.imread("Landscpae.jpeg", cv2.IMREAD_GRAYSCALE)
+cv2.imshow("resim", img)
+cv2.waitKey(0)
+cv2.imwrite("D:/trial.jpg",img)
+
+##capturing a video from camera
+
+cap=cv2.VideoCapture(0,cv2.CAP_DSHOW)
+#Videocapture returning class named as cap
+while True:
+    ret, frame = cap.read()
+    frame = cv2.flip(frame, 1)
+    cv2.imshow("webcam", frame)
+    if ord(" ") != cv2.waitKey(1) & 0xFF:
+        continue
+    break
+cv2.waitKey(30)
+#30 is a parameter controlling the sample rate
+
+##saving the captured video as gray 
+cap=cv2.VideoCapture(0,cv2.CAP_DSHOW)
+name_of_video="trial_1"
+codec = cv2.VideoWriter_fourcc(*'mp4v')
+Rate=30;
+resolution=(640,480)
+out = cv2.VideoWriter("D:/muhammed/trial_1.mp4", codec, Rate, resolution)
+
+while True:
+    ret, frame = cap.read()
+    frame = cv2.flip(frame, 1)
+    gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    out.write(gray_frame)
+    cv2.imshow("webcam", gray_frame)
+
+    if ord(" ") != cv2.waitKey(1) & 0xFF:
+        continue
+    break
+    cv2.waitKey(30)
